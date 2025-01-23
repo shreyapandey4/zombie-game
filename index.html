@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <title>jolly rancher shoot-out</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="fixed text-white ml-2 mt-1 text-sm select-none">
+    <span>Score: </span><span id="scoreEl">0</span></div>
+  <div class="fixed inset-0 flex items-center justify-center" id="modalEl">
+    <div class= 'bg-white max-w-md w-full p-6 text-center'>
+      <h1 class="text-3xl font-bold">zombie shoot-out</h1>
+      <p class="text-sm py-2">help agent J. (and his cats) take down zombies</p>
+      <div><button class= "bg-blue-500 w-full text-white py-3 rounded-full mt-2" id="startEl">Start!</button></div>
+    </div>
+  </div>
+  <canvas id="gameCanvas"></canvas>
+  <script src="script.js"></script>
+</body>
+</html>
