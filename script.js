@@ -120,19 +120,24 @@ function updateCatPosition() {
 const zombieSprite = new Image();
 zombieSprite.src = "images/zombieSprite.png";
 
-// Helper functions
+// Detect if the device is an Android browser
+const isAndroid = /Android/i.test(navigator.userAgent);
+
+// Adjust zombie speed factor
+const zombieSpeedMultiplier = isAndroid ? 0.6 : 1; // Reduce speed on Android browsers
+
 function spawnZombie() {
-  const side = Math.floor(Math.random() * 4); // 0 = top, 1 = right, 2 = bottom, 3 = left
+  const side = Math.floor(Math.random() * 4);
   let x, y;
   if (side === 0) {
     x = Math.random() * canvas.width;
     y = -SPRITE_SIZE;
   } else if (side === 1) {
-    x = canvas.width;
+    x = canvas.width + SPRITE_SIZE; // Start further off-screen
     y = Math.random() * canvas.height;
   } else if (side === 2) {
     x = Math.random() * canvas.width;
-    y = canvas.height;
+    y = canvas.height + SPRITE_SIZE;
   } else {
     x = -SPRITE_SIZE;
     y = Math.random() * canvas.height;
@@ -146,9 +151,10 @@ function spawnZombie() {
     frameX: 0,
     frameY: 0,
     frameCount: 0,
-    speed: 2,
+    speed: 2 * zombieSpeedMultiplier, // Adjust speed based on device
   });
 }
+
 
 function drawSprite(img, frameX, frameY, x, y, width, height) {
   ctx.drawImage(
