@@ -1,4 +1,4 @@
-// Constants for the canvas
+ // Constants for the canvas
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -120,24 +120,19 @@ function updateCatPosition() {
 const zombieSprite = new Image();
 zombieSprite.src = "images/zombieSprite.png";
 
-// Detect if the device is an Android browser
-const isAndroid = /Android/i.test(navigator.userAgent);
-
-// Adjust zombie speed factor
-const zombieSpeedMultiplier = isAndroid ? 0.6 : 1; // Reduce speed on Android browsers
-
+// Helper functions
 function spawnZombie() {
-  const side = Math.floor(Math.random() * 4);
+  const side = Math.floor(Math.random() * 4); // 0 = top, 1 = right, 2 = bottom, 3 = left
   let x, y;
   if (side === 0) {
     x = Math.random() * canvas.width;
     y = -SPRITE_SIZE;
   } else if (side === 1) {
-    x = canvas.width + SPRITE_SIZE; // Start further off-screen
+    x = canvas.width;
     y = Math.random() * canvas.height;
   } else if (side === 2) {
     x = Math.random() * canvas.width;
-    y = canvas.height + SPRITE_SIZE;
+    y = canvas.height;
   } else {
     x = -SPRITE_SIZE;
     y = Math.random() * canvas.height;
@@ -151,10 +146,9 @@ function spawnZombie() {
     frameX: 0,
     frameY: 0,
     frameCount: 0,
-    speed: 2 * zombieSpeedMultiplier, // Adjust speed based on device
+    speed: 2,
   });
 }
-
 
 function drawSprite(img, frameX, frameY, x, y, width, height) {
   ctx.drawImage(
