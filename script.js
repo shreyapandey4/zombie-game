@@ -1,4 +1,4 @@
- // Constants for the canvas
+// Constants for the canvas
 const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = window.innerWidth;
@@ -11,6 +11,7 @@ const modal = document.querySelector('#modalEl');
 const shootSound = new Audio("audio/fire.mp3"); // Shooting sound
 const zombieHitSound = new Audio("audio/killed_zombie.mp3"); // Zombie hit sound
 const gameOverSound = new Audio("audio/zombieEat.mp3");
+
 // Game variables
 let keys = {};
 let projectiles = [];
@@ -128,14 +129,14 @@ function spawnZombie() {
     x = Math.random() * canvas.width;
     y = -SPRITE_SIZE;
   } else if (side === 1) {
-    x = canvas.width;
-    y = Math.random() * canvas.height;
+    x = canvas.width + SPRITE_SIZE; // Adjust spawn location to an angle
+    y = Math.random() * (canvas.height * 0.6) + (canvas.height * 0.2); // Avoid middle section
   } else if (side === 2) {
     x = Math.random() * canvas.width;
-    y = canvas.height;
+    y = canvas.height + SPRITE_SIZE;
   } else {
     x = -SPRITE_SIZE;
-    y = Math.random() * canvas.height;
+    y = Math.random() * (canvas.height * 0.6) + (canvas.height * 0.2); // Avoid middle section
   }
 
   zombies.push({
@@ -194,7 +195,6 @@ function playSound(sound) {
   soundClone.volume = 1; 
   soundClone.play();
 }
-
 
 function shootProjectile(e) {
   playSound(shootSound); // Play shooting sound
@@ -333,9 +333,10 @@ function gameLoop() {
 // Event listeners
 canvas.addEventListener("click", shootProjectile);
 
-startGameBtn.addEventListener('click', () => {
-  if (!gameOver) {
-    gameLoop();
-  }
-  modal.style.display = 'none';
-});
+startGameBtn.addEventListener('click',
+ () => {
+   if (!gameOver) {
+     gameLoop();
+   }
+   modal.style.display = 'none';
+ });
